@@ -57,7 +57,7 @@ class Reader
     return 'No file found' if !File.exist? '5desk.txt'
     $word = File.readlines("5desk.txt").sample
     $word = $word.downcase
-    return  $word
+    $word
   end
 
 end
@@ -65,7 +65,7 @@ end
 class Choose
   def selector
       print "Do you want to be the coder? (y/n) : "
-      $answer = gets.chomp
+      $answer = gets.chomp.downcase
       if $answer == "y" 
           chooser
       else
@@ -75,8 +75,7 @@ class Choose
   end
   def chooser
      print 'Choose a word: '
-     $word = gets.chomp
-     $word = $word.downcase
+     $word = gets.chomp.downcase
      $word
   end
 end
@@ -196,7 +195,7 @@ class Game < Check
     else
       $tries_played += 1
       $new_board.panel
-      puts "Tries left: #{10-$tries_played}" 
+      puts "Tries left: #{10 - $tries_played}" 
       if $tries_played === 10
         puts 'Bad luck! You could not find the word!'
         puts "The word was: #{$word}"
