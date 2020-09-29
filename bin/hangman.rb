@@ -82,7 +82,7 @@ class Choose
 end
 
 class SaveGame 
-  def save_game(id, player)
+  def save_game(player)
     Dir.mkdir("games") unless Dir.exists?("games")
     json = {
       :word=> $word,
@@ -91,7 +91,7 @@ class SaveGame
       :player=> player,
       :letters=> $let      
     }
-    filename = "games/Game_#{id}.json"
+    filename = "games/Game_#{player}.json"
   
     File.open(filename,'w') do |file|
       file.write json.to_json
@@ -112,8 +112,7 @@ end
 
 class Game < Check
   def initialize(player1)
-    @player1 = player1    
-    $id = 1
+    @player1 = player1
     $let = []
     a = []
     puts "Welcome #{@player1}, let's play HangMan"
@@ -177,8 +176,7 @@ class Game < Check
     print "Do you want to save the game? (y/n)"
     $save = gets.chomp
     if $save == 'y'
-      $newSave.save_game($id, @player1)
-      $id += 1
+      $newSave.save_game(@player1)
       print 'Do you want to continue playin? (y/n)'
       $continue = gets.chomp
       if $continue == 'y'
@@ -201,6 +199,7 @@ class Game < Check
       puts "Tries left: #{10-$tries_played}" 
       if $tries_played === 10
         puts 'Bad luck! You could not find the word!'
+        puts "The word was: #{$word}"
       end
     end 
   end
