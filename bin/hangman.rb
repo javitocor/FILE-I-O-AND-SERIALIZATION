@@ -173,11 +173,11 @@ class Game < Check
 
   def save 
     print "Do you want to save the game? (y/n)"
-    $save = gets.chomp
+    $save = gets.chomp.downcase
     if $save == 'y'
       $newSave.save_game(@player1)
       print 'Do you want to continue playin? (y/n)'
-      $continue = gets.chomp
+      $continue = gets.chomp.downcase
       if $continue == 'y'
         puts "Keep playing!"
       else
